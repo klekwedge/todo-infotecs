@@ -67,10 +67,10 @@ function TodoEdit({
             {currentTask.complete ? 'Done' : 'Active'}
           </h3>
           <div className="edit__buttons">
-            <button type="submit" onClick={() => toggleTask(currentTask.id)}>
+            <button className="_btn" type="submit" onClick={() => toggleTask(currentTask.id)}>
               Change status
             </button>
-            <button type="submit" onClick={() => removeTask(currentTask.id)}>
+            <button className="_btn" type="submit" onClick={() => removeTask(currentTask.id)}>
               Delete
             </button>
           </div>

@@ -20,7 +20,7 @@ function TodoNewTask({ addTask }) {
   return (
     <form className="todo__new-task new-task" onSubmit={handleSubmit}>
       <input
-        className="new-task__input"
+        className="new-task__input _custom-input"
         value={taskNameInput}
         onChange={(e) => setTaskNameInput(e.target.value)}
         onKeyDown={handleKeyPress}
@@ -28,7 +28,7 @@ function TodoNewTask({ addTask }) {
         minLength={minLength}
         placeholder="Enter the name of your task"
       />
-      <button type="submit" className="new-task__button">
+      <button type="submit" className="new-task__button _btn">
         Add
       </button>
     </form>

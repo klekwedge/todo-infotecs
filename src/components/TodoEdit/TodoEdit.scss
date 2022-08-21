@@ -17,3 +17,19 @@
   gap: 10px;
   align-items: center;
 }
+
+// .edit__buttons ._btn:first-child{
+//   background: red;
+// }
+
+.edit__buttons ._btn:nth-child(2) {
+  background: #e53e3e;
+  border: 2px solid #e53e3e;
+  &:hover {
+    background: #c53030;
+  }
+
+  &:focus {
+    border: 2px solid white;
+  }
+}

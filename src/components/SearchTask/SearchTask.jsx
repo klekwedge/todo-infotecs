@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -31,16 +32,19 @@ function SearchTask({ setFilterName }) {
     <>
       <form className="todo__search search" onSubmit={handleSubmit}>
         <input
-          className="search__input"
+          type="text"
+          name="search task"
+          placeholder="Search task"
+          className="search__input _custom-input"
           value={taskNameInput}
           onChange={(e) => setTaskNameInput(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder="Search task..."
         />
-        <button type="submit" className="search__button">
+        <button type="submit" className="search__button _btn">
           Search
         </button>
       </form>
+
       {filter ? (
         <div className="search__clear clear" onClick={resetFilter}>
           <h2 className="clear__title">

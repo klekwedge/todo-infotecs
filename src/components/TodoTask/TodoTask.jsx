@@ -20,8 +20,6 @@ function TodoTask({
           checked={task.complete}
           onChange={() => toggleTask(task.id)}
         />
-        {/* <label htmlFor="check-1">Apples</label> */}
-        {/* <input type="checkbox" checked={task.complete} onChange={() => toggleTask(task.id)} /> */}
         <label htmlFor={task.id}>
           <h3
             className={cn({
