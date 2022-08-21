@@ -9,13 +9,14 @@ import cn from 'classnames';
 import TodoNewTask from '../TodoNewTask/TodoNewTask';
 import TodoTask from '../TodoTask/TodoTask';
 import './TodoList.scss';
+import SearchTask from '../SearchTask/SearchTask';
 
 function TodoList() {
   const taskListRef = useRef(null);
   const taskResizeRef = useRef(null);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState(null);
-  // useScrollbar(todoListScrollWrapper, hasScroll);
+  const [filterName, setFilterName] = useState('');
 
   useEffect(() => {
     if (newTask) {
@@ -38,9 +39,8 @@ function TodoList() {
   ///
 
   let downed;
-  let el;
   let x;
-  let deltaX = 0;
+  // let deltaX = 0;
 
   function stopStretch() {
     downed = false;
@@ -53,10 +53,9 @@ function TodoList() {
     } else {
       x = window.event.clientX;
     }
-    e = e || window.event;
-    el = e.target || e.srcElement;
-    // console.log(el.offsetLeft);
-    deltaX = el.offsetLeft;
+    // e = e || window.event;
+    // const el = e.target || e.srcElement;
+    // deltaX = el.offsetLeft;
   }
 
   function moveBlock(e) {
@@ -87,11 +86,29 @@ function TodoList() {
     ]);
   };
 
+  const allTodos = tasks.map((task) => (
+    <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
+  ));
+
+  let filterList = [];
+
+  if (filterName) {
+    filterList = tasks
+      .filter((task) => task.name.includes(filterName))
+      .map((task) => (
+        <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
+      ));
+  }
+
   return (
     <section className="todo__tasks pan1" ref={taskListRef}>
       <h2 className="tasks__title">All tasks</h2>
       <TodoNewTask addTask={setNewTask} />
+      <SearchTask setFilterName={setFilterName} />
       <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
+        {filterList.length > 0 ? filterList : allTodos}
+      </ul>
+      {/* <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
         {tasks.length > 0
           ? tasks
             .map((task) => (
@@ -104,7 +121,7 @@ function TodoList() {
             ))
             .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1))
           : null}
-      </ul>
+      </ul> */}
       <div id="resize" ref={taskResizeRef} />
     </section>
   );
