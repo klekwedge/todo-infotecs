@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './TodoNewTask.scss';
 
-function TodoNewTask() {
+function TodoNewTask({ addTask }) {
   const [taskNameInput, setTaskNameInput] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    addTask({ name: taskNameInput });
     setTaskNameInput('');
   };
 
