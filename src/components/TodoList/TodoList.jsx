@@ -1,8 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-undef */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-param-reassign */
-/* eslint-disable camelcase */
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import cn from 'classnames';
@@ -33,47 +28,37 @@ function TodoList() {
     setTasks([...tasks.filter((task) => task.id !== taskId)]);
   };
 
-  /// ///
-  /// //
-  /// //
-  ///
-
   let downed;
   let x;
-  // let deltaX = 0;
 
   function stopStretch() {
     downed = false;
   }
 
-  function saveY(e) {
+  function saveX(e) {
     downed = true;
     if (e) {
       x = e.pageX;
     } else {
       x = window.event.clientX;
     }
-    // e = e || window.event;
-    // const el = e.target || e.srcElement;
-    // deltaX = el.offsetLeft;
   }
 
   function moveBlock(e) {
-    if (downed == true) {
+    if (downed) {
       if (e) {
         x = e.pageX;
       } else {
         x = window.event.clientX;
       }
       if (x < 800 && x > 260) {
-        const new_x = x;
-        taskListRef.current.style.width = `${new_x}px`;
+        taskListRef.current.style.width = `${x}px`;
       }
     }
   }
 
   if (taskListRef.current) {
-    taskListRef.current.addEventListener('mousedown', saveY);
+    taskListRef.current.addEventListener('mousedown', saveX);
   }
 
   document.addEventListener('mouseup', stopStretch);
@@ -86,18 +71,22 @@ function TodoList() {
     ]);
   };
 
-  const allTodos = tasks.map((task) => (
-    <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
-  ));
-
+  const allTodos = tasks
+    .map((task) => (
+      <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
+    ))
+    .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   let filterList = [];
+
+  console.log(filterName);
 
   if (filterName) {
     filterList = tasks
       .filter((task) => task.name.includes(filterName))
       .map((task) => (
         <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
-      ));
+      ))
+      .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   }
 
   return (

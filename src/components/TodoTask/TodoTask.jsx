@@ -6,7 +6,7 @@ import './TodoTask.scss';
 function TodoTask({ task, toggleTask, removeTask }) {
   return (
     <li className="todo__task">
-      <input type="checkbox" onChange={() => toggleTask(task.id)} />
+      <input type="checkbox" checked={task.complete} onChange={() => toggleTask(task.id)} />
       <h3
         className={cn({
           _complete: task.complete,
