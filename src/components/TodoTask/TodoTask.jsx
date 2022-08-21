@@ -13,10 +13,11 @@ function TodoTask({ task, toggleTask, removeTask }) {
           _complete: task.complete,
         })}
       >
-        {task.name}
+        {task.name.length > 25 ? `${task.name.slice(0, 25)}...` : task.name}
       </h3>
       <TiDelete
         className="task__delete"
+        cursor="pointer"
         title="Delete task"
         onClick={() => removeTask(task.id)}
       />

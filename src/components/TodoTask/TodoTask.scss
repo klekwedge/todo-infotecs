@@ -1,5 +1,9 @@
 .todo__task {
   display: flex;
+  align-items: center;
+  background: #2D3034;
+  padding: 5px 10px;
+  border-radius: 20px;
 }
 
 ._complete {

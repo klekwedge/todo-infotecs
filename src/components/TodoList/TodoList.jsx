@@ -31,10 +31,10 @@ function TodoList() {
   };
 
   return (
-    <section className="todo__list list">
-      <h2 className="list__title">All tasks</h2>
+    <section className="todo__tasks">
+      <h2 className="tasks__title">All tasks</h2>
       <TodoNewTask addTask={setNewTask} />
-      <ul className="todo__task-list">
+      <ul className="tasks__list">
         {tasks.length > 0
           ? tasks
             .map((task) => (

@@ -1,3 +1,9 @@
-.todo__form{
-  
+.todo__new-task {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.new-task__input {
+  width: 100%;
 }

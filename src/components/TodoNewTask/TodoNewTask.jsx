@@ -3,6 +3,7 @@ import './TodoNewTask.scss';
 
 function TodoNewTask({ addTask }) {
   const [taskNameInput, setTaskNameInput] = useState('');
+  const minLength = 4;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,7 +12,7 @@ function TodoNewTask({ addTask }) {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && taskNameInput.length > minLength) {
       handleSubmit(e);
     }
   };
@@ -19,11 +20,12 @@ function TodoNewTask({ addTask }) {
   return (
     <form className="todo__new-task new-task" onSubmit={handleSubmit}>
       <input
+        className="new-task__input"
         value={taskNameInput}
         onChange={(e) => setTaskNameInput(e.target.value)}
         onKeyDown={handleKeyPress}
         required
-        minLength="3"
+        minLength={minLength}
         placeholder="Enter the name of your task"
       />
       <button type="submit" className="new-task__button">
