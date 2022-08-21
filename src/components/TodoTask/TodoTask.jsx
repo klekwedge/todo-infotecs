@@ -1,18 +1,22 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import cn from 'classnames';
 import { TiDelete } from 'react-icons/ti';
 import './TodoTask.scss';
 
-function TodoTask({ task, toggleTask, removeTask }) {
+function TodoTask({
+  task, toggleTask, removeTask, changeCurrentTask,
+}) {
   return (
-    <li className="todo__task">
+    <li className="todo__task" onClick={() => changeCurrentTask(task)}>
       <input type="checkbox" checked={task.complete} onChange={() => toggleTask(task.id)} />
       <h3
         className={cn({
           _complete: task.complete,
         })}
       >
-        {task.name.length > 25 ? `${task.name.slice(0, 25)}...` : task.name}
+        {task.name.length > 20 ? `${task.name.slice(0, 20)}...` : task.name}
       </h3>
       <TiDelete
         className="task__delete"

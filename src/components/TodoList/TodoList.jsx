@@ -6,7 +6,7 @@ import TodoTask from '../TodoTask/TodoTask';
 import './TodoList.scss';
 import SearchTask from '../SearchTask/SearchTask';
 
-function TodoList() {
+function TodoList({ changeCurrentTask }) {
   const taskListRef = useRef(null);
   const taskResizeRef = useRef(null);
   const [tasks, setTasks] = useState([]);
@@ -71,20 +71,33 @@ function TodoList() {
     ]);
   };
 
-  const allTodos = tasks.map((task) => (
-    <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
-  )).sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
+  const allTodos = tasks
+    .map((task) => (
+      <TodoTask
+        task={task}
+        key={task.id}
+        toggleTask={toggleTask}
+        removeTask={removeTask}
+        changeCurrentTask={changeCurrentTask}
+      />
+    ))
+    .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   let filterList = [];
 
   if (filterName) {
     filterList = tasks
       .filter((task) => task.name.includes(filterName))
       .map((task) => (
-        <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
-      )).sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
+        <TodoTask
+          task={task}
+          key={task.id}
+          toggleTask={toggleTask}
+          removeTask={removeTask}
+          changeCurrentTask={changeCurrentTask}
+        />
+      ))
+      .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   }
-
-  console.log(filterList);
 
   return (
     <section className="todo__tasks pan1" ref={taskListRef}>
