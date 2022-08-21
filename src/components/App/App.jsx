@@ -15,15 +15,17 @@ function App() {
   function changeCurrentTask(task) {
     setCurrentTask(task);
   }
-
-  // function changeCurrentTask(task) {
-  //   setCurrentTask(task);
-  // }
+  // console.log('!');
 
   return (
     <main className="todo">
       <TodoList tasks={tasks} updateTasks={updateTasks} changeCurrentTask={changeCurrentTask} />
-      <TodoEdit tasks={tasks} updateTasks={updateTasks} currentTask={currentTask} />
+      <TodoEdit
+        tasks={tasks}
+        updateTasks={updateTasks}
+        changeCurrentTask={changeCurrentTask}
+        currentTask={currentTask}
+      />
     </main>
   );
 }

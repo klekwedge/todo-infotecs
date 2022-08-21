@@ -3,15 +3,30 @@
 import React, { useRef, useState } from 'react';
 import './TodoEdit.scss';
 
-function TodoEdit({ currentTask, updateTasks, tasks }) {
-  console.log(currentTask.name);
+function TodoEdit({
+  currentTask, updateTasks, tasks, changeCurrentTask,
+}) {
   const [taskName, setTaskName] = useState(currentTask.name);
   const refFirst = useRef();
 
-  let edit = true;
+  let editable = true;
+
+  const removeTask = (taskId) => {
+    updateTasks([...tasks.filter((task) => task.id !== taskId)]);
+    changeCurrentTask({});
+  };
+
+  const toggleTask = (taskId) => {
+    console.log('taskId', taskId);
+    updateTasks([
+      // eslint-disable-next-line max-len
+      ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
+    ]);
+    changeCurrentTask({ ...currentTask, complete: !currentTask.complete });
+  };
 
   const saveTaskEdit = function () {
-    if (edit) {
+    if (editable) {
       refFirst.current.contentEditable = true;
       refFirst.current.focus();
     } else {
@@ -25,7 +40,7 @@ function TodoEdit({ currentTask, updateTasks, tasks }) {
       ]);
     }
 
-    edit = !edit;
+    editable = !editable;
   };
 
   const keySaveTaskEdit = (e) => {
@@ -49,9 +64,15 @@ function TodoEdit({ currentTask, updateTasks, tasks }) {
           </h3>
           <h3>
             Task status:
-            {' '}
+            {console.log(currentTask.complete)}
             {currentTask.complete ? 'Done' : 'Active'}
           </h3>
+          <button type="submit" onClick={() => toggleTask(currentTask.id)}>
+            Change task status
+          </button>
+          <button type="submit" onClick={() => removeTask(currentTask.id)}>
+            Delete
+          </button>
         </div>
       ) : null}
     </section>

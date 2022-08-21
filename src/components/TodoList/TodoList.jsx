@@ -28,6 +28,13 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
     updateTasks([...tasks.filter((task) => task.id !== taskId)]);
   };
 
+  const toggleTask = (taskId) => {
+    updateTasks([
+      // eslint-disable-next-line max-len
+      ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
+    ]);
+  };
+
   let downed;
   let x;
 
@@ -63,13 +70,6 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
 
   document.addEventListener('mouseup', stopStretch);
   document.addEventListener('mousemove', moveBlock);
-
-  const toggleTask = (taskId) => {
-    updateTasks([
-      // eslint-disable-next-line max-len
-      ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
-    ]);
-  };
 
   const allTodos = tasks
     .map((task) => (
