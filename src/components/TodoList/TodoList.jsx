@@ -71,23 +71,20 @@ function TodoList() {
     ]);
   };
 
-  const allTodos = tasks
-    .map((task) => (
-      <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
-    ))
-    .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
+  const allTodos = tasks.map((task) => (
+    <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
+  )).sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   let filterList = [];
-
-  console.log(filterName);
 
   if (filterName) {
     filterList = tasks
       .filter((task) => task.name.includes(filterName))
       .map((task) => (
         <TodoTask task={task} key={task.id} toggleTask={toggleTask} removeTask={removeTask} />
-      ))
-      .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
+      )).sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   }
+
+  console.log(filterList);
 
   return (
     <section className="todo__tasks pan1" ref={taskListRef}>
@@ -95,7 +92,7 @@ function TodoList() {
       <TodoNewTask addTask={setNewTask} />
       <SearchTask setFilterName={setFilterName} />
       <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
-        {filterList.length > 0 ? filterList : allTodos}
+        {filterName ? filterList : allTodos}
       </ul>
       {/* <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
         {tasks.length > 0
