@@ -5,7 +5,12 @@ import TodoEdit from '../TodoEdit/TodoEdit';
 import './App.scss';
 
 function App() {
+  const [tasks, setTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState({});
+
+  function updateTasks(taskList) {
+    setTasks(taskList);
+  }
 
   function changeCurrentTask(task) {
     setCurrentTask(task);
@@ -17,8 +22,8 @@ function App() {
 
   return (
     <main className="todo">
-      <TodoList changeCurrentTask={changeCurrentTask} />
-      <TodoEdit currentTask={currentTask} />
+      <TodoList tasks={tasks} updateTasks={updateTasks} changeCurrentTask={changeCurrentTask} />
+      <TodoEdit tasks={tasks} updateTasks={updateTasks} currentTask={currentTask} />
     </main>
   );
 }

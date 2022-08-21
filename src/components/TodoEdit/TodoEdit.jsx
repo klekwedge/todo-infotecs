@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import './TodoEdit.scss';
 
 function TodoEdit({ currentTask, updateTasks, tasks }) {
-  console.log(currentTask);
+  console.log(currentTask.name);
   const [taskName, setTaskName] = useState(currentTask.name);
   const refFirst = useRef();
 
@@ -20,7 +20,7 @@ function TodoEdit({ currentTask, updateTasks, tasks }) {
 
       updateTasks([
         ...tasks.map((taskItem) => (taskItem.id === currentTask.id
-          ? { ...currentTask, nameTask: refFirst.current.textContent }
+          ? { ...currentTask, name: refFirst.current.textContent }
           : { ...taskItem })),
       ]);
     }
@@ -45,15 +45,12 @@ function TodoEdit({ currentTask, updateTasks, tasks }) {
             onKeyDown={keySaveTaskEdit}
             onClick={saveTaskEdit}
           >
-            Task name:
-            {' '}
             {currentTask.name}
           </h3>
           <h3>
             Task status:
             {' '}
             {currentTask.complete ? 'Done' : 'Active'}
-            {console.log(currentTask)}
           </h3>
         </div>
       ) : null}

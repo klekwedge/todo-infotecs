@@ -6,10 +6,10 @@ import TodoTask from '../TodoTask/TodoTask';
 import './TodoList.scss';
 import SearchTask from '../SearchTask/SearchTask';
 
-function TodoList({ changeCurrentTask }) {
+function TodoList({ changeCurrentTask, tasks, updateTasks }) {
   const taskListRef = useRef(null);
   const taskResizeRef = useRef(null);
-  const [tasks, setTasks] = useState([]);
+
   const [newTask, setNewTask] = useState(null);
   const [filterName, setFilterName] = useState('');
 
@@ -20,12 +20,12 @@ function TodoList({ changeCurrentTask }) {
         name: newTask.name,
         complete: false,
       };
-      setTasks([...tasks, newTaskItem]);
+      updateTasks([...tasks, newTaskItem]);
     }
   }, [newTask]);
 
   const removeTask = (taskId) => {
-    setTasks([...tasks.filter((task) => task.id !== taskId)]);
+    updateTasks([...tasks.filter((task) => task.id !== taskId)]);
   };
 
   let downed;
@@ -65,7 +65,7 @@ function TodoList({ changeCurrentTask }) {
   document.addEventListener('mousemove', moveBlock);
 
   const toggleTask = (taskId) => {
-    setTasks([
+    updateTasks([
       // eslint-disable-next-line max-len
       ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
     ]);
@@ -107,20 +107,6 @@ function TodoList({ changeCurrentTask }) {
       <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
         {filterName ? filterList : allTodos}
       </ul>
-      {/* <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
-        {tasks.length > 0
-          ? tasks
-            .map((task) => (
-              <TodoTask
-                task={task}
-                key={task.id}
-                toggleTask={toggleTask}
-                removeTask={removeTask}
-              />
-            ))
-            .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1))
-          : null}
-      </ul> */}
       <div id="resize" ref={taskResizeRef} />
     </section>
   );
