@@ -4,7 +4,6 @@ import { TiDelete } from 'react-icons/ti';
 import './TodoTask.scss';
 
 function TodoTask({ task, toggleTask, removeTask }) {
-  console.log(task);
   return (
     <li className="todo__task">
       <input type="checkbox" onChange={() => toggleTask(task.id)} />
