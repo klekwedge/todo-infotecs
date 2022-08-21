@@ -37,7 +37,14 @@ function TodoList() {
       <ul className="todo__task-list">
         {tasks.length > 0
           ? tasks
-            .map((task) => <TodoTask task={task} key={task.id} />)
+            .map((task) => (
+              <TodoTask
+                task={task}
+                key={task.id}
+                toggleTask={toggleTask}
+                removeTask={removeTask}
+              />
+            ))
             .sort((el) => (el.props.task.complete ? 1 : -1))
           : null}
       </ul>
