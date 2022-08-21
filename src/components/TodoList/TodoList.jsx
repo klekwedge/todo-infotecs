@@ -64,8 +64,8 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
     }
   }
 
-  if (taskListRef.current) {
-    taskListRef.current.addEventListener('mousedown', saveX);
+  if (taskResizeRef.current) {
+    taskResizeRef.current.addEventListener('mousedown', saveX);
   }
 
   document.addEventListener('mouseup', stopStretch);
