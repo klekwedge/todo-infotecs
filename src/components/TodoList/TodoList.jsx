@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import cn from 'classnames';
 import TodoNewTask from '../TodoNewTask/TodoNewTask';
 import TodoTask from '../TodoTask/TodoTask';
 import './TodoList.scss';
@@ -7,6 +8,7 @@ import './TodoList.scss';
 function TodoList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState(null);
+  // useScrollbar(todoListScrollWrapper, hasScroll);
 
   useEffect(() => {
     if (newTask) {
@@ -34,7 +36,7 @@ function TodoList() {
     <section className="todo__tasks">
       <h2 className="tasks__title">All tasks</h2>
       <TodoNewTask addTask={setNewTask} />
-      <ul className="tasks__list">
+      <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
         {tasks.length > 0
           ? tasks
             .map((task) => (

@@ -6,13 +6,18 @@
   max-width: 260px;
 }
 
-.tasks__title{
+._scroll {
+  overflow-y: scroll;
+  max-height: 620px;
+}
+
+.tasks__title {
   font-weight: 500;
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.tasks__list{
+.tasks__list {
   display: flex;
   gap: 10px;
   flex-direction: column;
