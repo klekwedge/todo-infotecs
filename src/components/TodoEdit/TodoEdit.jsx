@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import './TodoEdit.scss';
 
-function TodoEdit({ currentTask }) {
+function TodoEdit({ currentTask, updateTasks, tasks }) {
   console.log(currentTask);
   const [taskName, setTaskName] = useState(currentTask.name);
   const refFirst = useRef();
@@ -18,11 +18,11 @@ function TodoEdit({ currentTask }) {
       setTaskName(refFirst.current.textContent);
       refFirst.current.contentEditable = false;
 
-      // setTasks([
-      //   ...tasks.map((taskItem) => (taskItem.id === task.id
-      //     ? { ...task, nameTask: refFirst.current.textContent }
-      //     : { ...taskItem })),
-      // ]);
+      updateTasks([
+        ...tasks.map((taskItem) => (taskItem.id === currentTask.id
+          ? { ...currentTask, nameTask: refFirst.current.textContent }
+          : { ...taskItem })),
+      ]);
     }
 
     edit = !edit;
@@ -37,12 +37,24 @@ function TodoEdit({ currentTask }) {
   return (
     <section className="todo__edit pan2">
       <h2 className="edit__title">Edit task</h2>
-      {currentTask ? (
+      {currentTask.name ? (
         <div>
-          <h3 ref={refFirst} onBlur={saveTaskEdit} onKeyDown={keySaveTaskEdit}>
+          <h3
+            ref={refFirst}
+            onBlur={saveTaskEdit}
+            onKeyDown={keySaveTaskEdit}
+            onClick={saveTaskEdit}
+          >
+            Task name:
+            {' '}
             {currentTask.name}
           </h3>
-          <h1 onClick={saveTaskEdit}>++++</h1>
+          <h3>
+            Task status:
+            {' '}
+            {currentTask.complete ? 'Done' : 'Active'}
+            {console.log(currentTask)}
+          </h3>
         </div>
       ) : null}
     </section>

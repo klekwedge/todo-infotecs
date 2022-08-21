@@ -1,6 +1,7 @@
 .todo__task {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background: #2d3034;
   padding: 5px 10px;
   border-radius: 20px;
@@ -9,6 +10,12 @@
   &:hover {
     transform: scale(1.05);
   }
+}
+
+.task__wrapper{
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 ._complete {

@@ -11,6 +11,10 @@ function App() {
     setCurrentTask(task);
   }
 
+  // function changeCurrentTask(task) {
+  //   setCurrentTask(task);
+  // }
+
   return (
     <main className="todo">
       <TodoList changeCurrentTask={changeCurrentTask} />

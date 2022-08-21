@@ -1,8 +1,12 @@
 .todo__edit {
   padding: 20px;
+
+  & h3 {
+    margin-bottom: 10px;
+  }
 }
 
-.edit__title{
+.edit__title {
   font-weight: 500;
   font-size: 20px;
   margin-bottom: 20px;

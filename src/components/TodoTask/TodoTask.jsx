@@ -9,19 +9,22 @@ function TodoTask({
   task, toggleTask, removeTask, changeCurrentTask,
 }) {
   return (
-    <li className="todo__task" onClick={() => changeCurrentTask(task)}>
-      <input type="checkbox" checked={task.complete} onChange={() => toggleTask(task.id)} />
-      <h3
-        className={cn({
-          _complete: task.complete,
-        })}
-      >
-        {task.name.length > 20 ? `${task.name.slice(0, 20)}...` : task.name}
-      </h3>
+    <li className="todo__task task" onClick={() => changeCurrentTask(task)}>
+      <div className="task__wrapper">
+        <input type="checkbox" checked={task.complete} onChange={() => toggleTask(task.id)} />
+        <h3
+          className={cn({
+            _complete: task.complete,
+          })}
+        >
+          {task.name.length > 20 ? `${task.name.slice(0, 20)}...` : task.name}
+        </h3>
+      </div>
       <TiDelete
         className="task__delete"
         cursor="pointer"
         title="Delete task"
+        size="18"
         onClick={() => removeTask(task.id)}
       />
     </li>
