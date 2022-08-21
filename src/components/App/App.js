@@ -1,9 +1,13 @@
-import './App.css';
+import './App.scss';
+import TodoList from '../TodoList/TodoList';
+import TodoEdit from '../TodoEdit/TodoEdit';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <main className="todo">
+      <TodoList/>
+      <TodoEdit/>
+    </main>
   );
 }
 
