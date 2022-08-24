@@ -19,7 +19,10 @@ function TodoTask({
           type="checkbox"
           name={task.id}
           checked={task.complete}
-          onChange={() => toggleTask(task.id)}
+          onChange={() => {
+            toggleTask(task.id);
+            changeCurrentTask({ ...task, complete: !task.complete });
+          }}
         />
         <label htmlFor={task.id}>
           <h3

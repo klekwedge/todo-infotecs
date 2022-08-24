@@ -20,11 +20,30 @@
 
 .edit__name {
   padding: 5px;
+  margin: 0;
   display: inline-block;
   border: 1px solid transparent;
   &:focus {
     border: 1px solid red;
   }
+}
+
+.edit__descr {
+  display: block;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: black;
+  max-width: 320px;
+  min-height: 100px;
+  max-height: 300px;
+  resize: vertical;
+  margin: 10px 0 20px 0;
+}
+
+.edit__task {
+  margin-bottom: 30px;
 }
 
 .edit__buttons ._btn:nth-child(2) {

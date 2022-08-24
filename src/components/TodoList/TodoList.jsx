@@ -18,6 +18,7 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
         id: uuidv4(),
         name: newTask.name,
         complete: false,
+        descr: '',
       };
       updateTasks([...tasks, newTaskItem]);
     }

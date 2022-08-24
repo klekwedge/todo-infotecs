@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import './TodoEdit.scss';
 
@@ -9,6 +9,8 @@ function TodoEdit({
   currentTask, updateTasks, tasks, changeCurrentTask,
 }) {
   const [taskName, setTaskName] = useState(currentTask.name);
+  // console.log(currentTask.descr);
+
   const refFirst = useRef();
 
   let editable = true;
@@ -59,6 +61,14 @@ function TodoEdit({
     }
   };
 
+  const changeDescr = (e) => {
+    updateTasks([
+      // eslint-disable-next-line max-len
+      ...tasks.map((task) => (task.id === currentTask.id ? { ...task, descr: e.target.value } : { ...task })),
+    ]);
+    changeCurrentTask({ ...currentTask, descr: e.target.value });
+  };
+
   return (
     <section className="todo__edit edit">
       <h2 className="edit__title">Edit task</h2>
@@ -73,7 +83,13 @@ function TodoEdit({
           >
             {currentTask.name}
           </h3>
-          <h3>
+          <textarea
+            className="edit__descr"
+            placeholder="Enter task description:"
+            value={currentTask.descr}
+            onChange={(e) => changeDescr(e)}
+          />
+          <h3 className="edit__task">
             {'Task status: '}
             <span
               className={cn({
