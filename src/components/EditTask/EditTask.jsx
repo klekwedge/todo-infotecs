@@ -1,25 +1,29 @@
+/* eslint-disable max-len */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import cn from 'classnames';
 import './EditTask.scss';
 
 function EditTask({
   currentTask, updateTasks, tasks, changeCurrentTask,
 }) {
+  // Создание состояния для название задачи
   const [taskName, setTaskName] = useState(currentTask.name);
-  // console.log(currentTask.descr);
+  // Создание ссылки на название текущей задачи
+  const nameTaskRef = useRef();
 
-  const refFirst = useRef();
-
+  // Объявление и инициализация переменной-флага для возможности редактирования названия задачи
   let editable = true;
 
+  // Удаление выбранной задачи из списка задач
   const removeTask = (taskId) => {
     updateTasks([...tasks.filter((task) => task.id !== taskId)]);
     changeCurrentTask({});
   };
 
+  // Изменение состояния выполнения выбранной задачи
   const toggleTask = (taskId) => {
     updateTasks([
       // eslint-disable-next-line max-len
@@ -28,25 +32,26 @@ function EditTask({
     changeCurrentTask({ ...currentTask, complete: !currentTask.complete });
   };
 
+  // Сохранение изменения имени выбранной задачи
   const saveTaskEdit = function () {
     if (editable) {
-      refFirst.current.contentEditable = true;
-      refFirst.current.focus();
+      nameTaskRef.current.contentEditable = true;
+      nameTaskRef.current.focus();
     } else {
-      setTaskName(refFirst.current.textContent);
-      refFirst.current.contentEditable = false;
+      setTaskName(nameTaskRef.current.textContent);
+      nameTaskRef.current.contentEditable = false;
 
-      if (refFirst.current.textContent) {
+      if (nameTaskRef.current.textContent) {
         updateTasks([
           ...tasks.map((taskItem) => (taskItem.id === currentTask.id
-            ? { ...currentTask, name: refFirst.current.textContent }
+            ? { ...currentTask, name: nameTaskRef.current.textContent }
             : { ...taskItem })),
         ]);
       } else {
-        refFirst.current.textContent = taskName[0];
+        nameTaskRef.current.textContent = taskName[0];
         updateTasks([
           ...tasks.map((taskItem) => (taskItem.id === currentTask.id
-            ? { ...currentTask, name: refFirst.current.textContent }
+            ? { ...currentTask, name: nameTaskRef.current.textContent }
             : { ...taskItem })),
         ]);
       }
@@ -55,27 +60,29 @@ function EditTask({
     editable = !editable;
   };
 
+  // Сохранение изменения имени выбранной задачи при нажатии на кнопку 'Enter'
   const keySaveTaskEdit = (e) => {
     if (e.key === 'Enter') {
-      refFirst.current.blur();
+      nameTaskRef.current.blur();
     }
   };
 
+  // Изменение описания выбранной задачи
   const changeDescr = (e) => {
     updateTasks([
-      // eslint-disable-next-line max-len
       ...tasks.map((task) => (task.id === currentTask.id ? { ...task, descr: e.target.value } : { ...task })),
     ]);
     changeCurrentTask({ ...currentTask, descr: e.target.value });
   };
 
+  // Рендер компонента изменения задачи
   return (
     <section className="todo__edit edit">
       <h2 className="edit__title">Edit task</h2>
       {currentTask.name ? (
         <div>
           <h3
-            ref={refFirst}
+            ref={nameTaskRef}
             onBlur={saveTaskEdit}
             onKeyDown={keySaveTaskEdit}
             onClick={saveTaskEdit}

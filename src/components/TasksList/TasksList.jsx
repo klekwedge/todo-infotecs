@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,10 +9,13 @@ import SearchTask from '../SearchTask/SearchTask';
 import './TasksList.scss';
 
 function TasksList({ changeCurrentTask, tasks, updateTasks }) {
+  // Создание ссылки на текущий компонент
   const taskListRef = useRef(null);
+  // Создание состояния для новой задачи, а также для фильтра по имени
   const [newTask, setNewTask] = useState(null);
   const [filterName, setFilterName] = useState('');
 
+  // Создание новой задачи и добавление ее в общий список
   useEffect(() => {
     if (newTask) {
       const newTaskItem = {
@@ -24,17 +28,19 @@ function TasksList({ changeCurrentTask, tasks, updateTasks }) {
     }
   }, [newTask]);
 
+  // Удаление задачи из общего списка
   const removeTask = (taskId) => {
     updateTasks([...tasks.filter((task) => task.id !== taskId)]);
   };
 
+  // Изменение состояния выполнения задачи
   const toggleTask = (taskId) => {
     updateTasks([
-      // eslint-disable-next-line max-len
       ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
     ]);
   };
 
+  // Реализация изменения ширины общего списка задач
   let downed;
   let x;
 
@@ -67,6 +73,7 @@ function TasksList({ changeCurrentTask, tasks, updateTasks }) {
   document.addEventListener('mouseup', stopStretch);
   document.addEventListener('mousemove', moveBlock);
 
+  // Создание списка задач без фильтров
   const allTodos = tasks
     .map((task) => (
       <TodoTask
@@ -80,6 +87,7 @@ function TasksList({ changeCurrentTask, tasks, updateTasks }) {
     .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   let filterList = [];
 
+  // Создание списка задач с фильтром по имени
   if (filterName) {
     filterList = tasks
       .filter((task) => task.name.includes(filterName))
@@ -95,6 +103,7 @@ function TasksList({ changeCurrentTask, tasks, updateTasks }) {
       .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
   }
 
+  // Рендер компонента списка задач
   return (
     <section className="todo__tasks" ref={taskListRef}>
       <h2 className="tasks__title">All tasks</h2>

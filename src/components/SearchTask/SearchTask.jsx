@@ -7,27 +7,34 @@ import { AiOutlineClose } from 'react-icons/ai';
 import './SearchTask.scss';
 
 function SearchTask({ setFilterName }) {
+  // Создание состояния для поиска задачи по имени
   const [taskNameInput, setTaskNameInput] = useState('');
+
+  // Создание состояния для названия задачи, которую ищет пользователь
   const [filter, setFilter] = useState('');
 
+  // Изменение состояния фильтра по имени
   const handleSubmit = (e) => {
     e.preventDefault();
     setFilter(taskNameInput);
     setFilterName(taskNameInput);
   };
 
+  // Изменение состояния фильтра по имени при нажатии на кнопку 'Enter'
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && taskNameInput) {
       handleSubmit(e);
     }
   };
 
+  // Сброс фильтра
   const resetFilter = () => {
     setTaskNameInput('');
     setFilter('');
     setFilterName('');
   };
 
+  // Рендер компонента по созданию фильтра
   return (
     <>
       <form className="todo__search search" onSubmit={handleSubmit}>

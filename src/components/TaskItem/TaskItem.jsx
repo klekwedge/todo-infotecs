@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { TiDelete, TiEdit } from 'react-icons/ti';
 import './TaskItem.scss';
@@ -10,6 +10,7 @@ import './TaskItem.scss';
 function TaskItem({
   task, toggleTask, removeTask, changeCurrentTask,
 }) {
+  // Рендер компонента задачи
   return (
     <li className="todo__task task">
       <div className="task__wrapper">
