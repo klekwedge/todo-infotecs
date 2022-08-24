@@ -4,7 +4,7 @@
   height: 100vh;
   color: white;
   display: flex;
-  gap: 40px;
+  gap: 30px;
 }
 
 html,
@@ -12,21 +12,6 @@ body {
   font-family: Helvetica, "sans-serif";
 }
 
-// .pan1 {
-//   width: 200px;
-//   min-width: 200px;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-// }
-
-.pan1{
-  position: relative;
-}
-
-.pan2 {
-  width: auto;
-}
 
 #resize {
   position: absolute;

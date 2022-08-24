@@ -4,14 +4,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import cn from 'classnames';
-import { TiDelete } from 'react-icons/ti';
+import { TiDelete, TiEdit } from 'react-icons/ti';
+
 import './TodoTask.scss';
 
 function TodoTask({
   task, toggleTask, removeTask, changeCurrentTask,
 }) {
   return (
-    <li className="todo__task task" onClick={() => changeCurrentTask(task)}>
+    <li className="todo__task task">
       <div className="task__wrapper">
         <input
           id={task.id}
@@ -31,13 +32,26 @@ function TodoTask({
           {' '}
         </label>
       </div>
-      <TiDelete
-        className="task__delete"
-        cursor="pointer"
-        title="Delete task"
-        size="18"
-        onClick={() => removeTask(task.id)}
-      />
+      <div className="task__options">
+        <TiEdit
+          cursor="pointer"
+          title="Edit task"
+          size="18"
+          onClick={() => {
+            changeCurrentTask(task);
+          }}
+        />
+        <TiDelete
+          className="task__delete"
+          cursor="pointer"
+          title="Delete task"
+          size="18"
+          onClick={() => {
+            removeTask(task.id);
+            changeCurrentTask({});
+          }}
+        />
+      </div>
     </li>
   );
 }

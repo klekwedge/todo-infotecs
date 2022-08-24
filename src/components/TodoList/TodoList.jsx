@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import cn from 'classnames';
@@ -8,8 +9,6 @@ import SearchTask from '../SearchTask/SearchTask';
 
 function TodoList({ changeCurrentTask, tasks, updateTasks }) {
   const taskListRef = useRef(null);
-  const taskResizeRef = useRef(null);
-
   const [newTask, setNewTask] = useState(null);
   const [filterName, setFilterName] = useState('');
 
@@ -58,14 +57,10 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
       } else {
         x = window.event.clientX;
       }
-      if (x < 800 && x > 260) {
+      if (x < 800 && x > 320) {
         taskListRef.current.style.width = `${x}px`;
       }
     }
-  }
-
-  if (taskResizeRef.current) {
-    taskResizeRef.current.addEventListener('mousedown', saveX);
   }
 
   document.addEventListener('mouseup', stopStretch);
@@ -100,14 +95,14 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
   }
 
   return (
-    <section className="todo__tasks pan1" ref={taskListRef}>
+    <section className="todo__tasks" ref={taskListRef}>
       <h2 className="tasks__title">All tasks</h2>
       <TodoNewTask addTask={setNewTask} />
       <SearchTask setFilterName={setFilterName} />
       <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
         {filterName ? filterList : allTodos}
       </ul>
-      <div id="resize" ref={taskResizeRef} />
+      <div id="resize" onMouseDown={saveX} />
     </section>
   );
 }

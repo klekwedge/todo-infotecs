@@ -1,6 +1,8 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useRef, useState } from 'react';
+import cn from 'classnames';
 import './TodoEdit.scss';
 
 function TodoEdit({
@@ -33,11 +35,20 @@ function TodoEdit({
       setTaskName(refFirst.current.textContent);
       refFirst.current.contentEditable = false;
 
-      updateTasks([
-        ...tasks.map((taskItem) => (taskItem.id === currentTask.id
-          ? { ...currentTask, name: refFirst.current.textContent }
-          : { ...taskItem })),
-      ]);
+      if (refFirst.current.textContent) {
+        updateTasks([
+          ...tasks.map((taskItem) => (taskItem.id === currentTask.id
+            ? { ...currentTask, name: refFirst.current.textContent }
+            : { ...taskItem })),
+        ]);
+      } else {
+        refFirst.current.textContent = currentTask.name[0];
+        updateTasks([
+          ...tasks.map((taskItem) => (taskItem.id === currentTask.id
+            ? { ...currentTask, name: refFirst.current.textContent }
+            : { ...taskItem })),
+        ]);
+      }
     }
 
     editable = !editable;
@@ -50,7 +61,7 @@ function TodoEdit({
   };
 
   return (
-    <section className="todo__edit pan2 edit">
+    <section className="todo__edit edit">
       <h2 className="edit__title">Edit task</h2>
       {currentTask.name ? (
         <div>
@@ -64,7 +75,14 @@ function TodoEdit({
           </h3>
           <h3>
             {'Task status: '}
-            {currentTask.complete ? 'Done' : 'Active'}
+            <span
+              className={cn({
+                _complete: currentTask.complete,
+              })}
+            >
+              {' '}
+              {currentTask.complete ? 'Done' : 'Active'}
+            </span>
           </h3>
           <div className="edit__buttons">
             <button className="_btn" type="submit" onClick={() => toggleTask(currentTask.id)}>

@@ -15,7 +15,6 @@ function App() {
   function changeCurrentTask(task) {
     setCurrentTask(task);
   }
-  // console.log('!');
 
   return (
     <main className="todo">
