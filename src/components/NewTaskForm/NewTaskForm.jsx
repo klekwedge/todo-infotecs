@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './TodoNewTask.scss';
+import './NewTaskForm.scss';
 
-function TodoNewTask({ addTask }) {
+function NewTaskForm({ addTask }) {
   const [taskNameInput, setTaskNameInput] = useState('');
   const minLength = 4;
 
@@ -35,4 +35,4 @@ function TodoNewTask({ addTask }) {
   );
 }
 
-export default TodoNewTask;
+export default NewTaskForm;

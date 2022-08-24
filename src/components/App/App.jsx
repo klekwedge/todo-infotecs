@@ -1,18 +1,17 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
-import TodoList from '../TodoList/TodoList';
-import TodoEdit from '../TodoEdit/TodoEdit';
+import TodoList from '../TasksList/TasksList';
+import TodoEdit from '../EditTask/EditTask';
 import './App.scss';
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState({});
-  const savedTask = JSON.parse(localStorage.getItem('savedTasks'));
-  console.log(savedTask);
+  const savedTasks = JSON.parse(localStorage.getItem('savedTasks'));
 
   useEffect(() => {
-    if (savedTask) {
-      setTasks(savedTask);
+    if (savedTasks) {
+      setTasks(savedTasks);
     }
   }, []);
 

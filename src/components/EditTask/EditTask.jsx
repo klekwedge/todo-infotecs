@@ -3,9 +3,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
-import './TodoEdit.scss';
+import './EditTask.scss';
 
-function TodoEdit({
+function EditTask({
   currentTask, updateTasks, tasks, changeCurrentTask,
 }) {
   const [taskName, setTaskName] = useState(currentTask.name);
@@ -114,4 +114,4 @@ function TodoEdit({
   );
 }
 
-export default TodoEdit;
+export default EditTask;

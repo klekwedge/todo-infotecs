@@ -5,10 +5,9 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
 import { TiDelete, TiEdit } from 'react-icons/ti';
+import './TaskItem.scss';
 
-import './TodoTask.scss';
-
-function TodoTask({
+function TaskItem({
   task, toggleTask, removeTask, changeCurrentTask,
 }) {
   return (
@@ -59,4 +58,4 @@ function TodoTask({
   );
 }
 
-export default TodoTask;
+export default TaskItem;

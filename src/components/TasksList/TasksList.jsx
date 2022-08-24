@@ -2,12 +2,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import cn from 'classnames';
-import TodoNewTask from '../TodoNewTask/TodoNewTask';
-import TodoTask from '../TodoTask/TodoTask';
-import './TodoList.scss';
+import TodoNewTask from '../NewTaskForm/NewTaskForm';
+import TodoTask from '../TaskItem/TaskItem';
 import SearchTask from '../SearchTask/SearchTask';
+import './TasksList.scss';
 
-function TodoList({ changeCurrentTask, tasks, updateTasks }) {
+function TasksList({ changeCurrentTask, tasks, updateTasks }) {
   const taskListRef = useRef(null);
   const [newTask, setNewTask] = useState(null);
   const [filterName, setFilterName] = useState('');
@@ -108,4 +108,4 @@ function TodoList({ changeCurrentTask, tasks, updateTasks }) {
   );
 }
 
-export default TodoList;
+export default TasksList;
