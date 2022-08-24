@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoList from '../TodoList/TodoList';
 import TodoEdit from '../TodoEdit/TodoEdit';
 import './App.scss';
@@ -7,6 +7,18 @@ import './App.scss';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState({});
+  const savedTask = JSON.parse(localStorage.getItem('savedTasks'));
+  console.log(savedTask);
+
+  useEffect(() => {
+    if (savedTask) {
+      setTasks(savedTask);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('savedTasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   function updateTasks(taskList) {
     setTasks(taskList);
