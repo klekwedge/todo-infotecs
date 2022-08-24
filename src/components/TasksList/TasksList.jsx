@@ -8,7 +8,9 @@ import TodoTask from '../TaskItem/TaskItem';
 import SearchTask from '../SearchTask/SearchTask';
 import './TasksList.scss';
 
-function TasksList({ changeCurrentTask, tasks, updateTasks }) {
+function TasksList({
+  changeCurrentTask, tasks, updateTasks, currentTask,
+}) {
   // Создание ссылки на текущий компонент
   const taskListRef = useRef(null);
   // Создание состояния для новой задачи, а также для фильтра по имени
@@ -82,6 +84,7 @@ function TasksList({ changeCurrentTask, tasks, updateTasks }) {
         toggleTask={toggleTask}
         removeTask={removeTask}
         changeCurrentTask={changeCurrentTask}
+        currentTask={currentTask}
       />
     ))
     .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
@@ -98,6 +101,7 @@ function TasksList({ changeCurrentTask, tasks, updateTasks }) {
           toggleTask={toggleTask}
           removeTask={removeTask}
           changeCurrentTask={changeCurrentTask}
+          currentTask={currentTask}
         />
       ))
       .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));

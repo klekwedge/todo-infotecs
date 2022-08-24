@@ -8,9 +8,14 @@ import { TiDelete, TiEdit } from 'react-icons/ti';
 import './TaskItem.scss';
 
 function TaskItem({
-  task, toggleTask, removeTask, changeCurrentTask,
+  task, toggleTask, removeTask, changeCurrentTask, currentTask,
 }) {
-  // Рендер компонента задачи
+  function changeCurrentTaskStatus() {
+    if (currentTask.id === task.id) {
+      changeCurrentTask({ ...task, complete: !task.complete });
+    }
+  }
+
   return (
     <li className="todo__task task">
       <div className="task__wrapper">
@@ -21,7 +26,7 @@ function TaskItem({
           checked={task.complete}
           onChange={() => {
             toggleTask(task.id);
-            changeCurrentTask({ ...task, complete: !task.complete });
+            changeCurrentTaskStatus();
           }}
         />
         <label htmlFor={task.id}>

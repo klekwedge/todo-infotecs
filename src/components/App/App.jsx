@@ -35,7 +35,12 @@ function App() {
   // Рендер главного компонента страницы
   return (
     <main className="todo">
-      <TodoList tasks={tasks} updateTasks={updateTasks} changeCurrentTask={changeCurrentTask} />
+      <TodoList
+        tasks={tasks}
+        updateTasks={updateTasks}
+        changeCurrentTask={changeCurrentTask}
+        currentTask={currentTask}
+      />
       <TodoEdit
         tasks={tasks}
         updateTasks={updateTasks}
