@@ -19,7 +19,6 @@ function TodoEdit({
   };
 
   const toggleTask = (taskId) => {
-    console.log('taskId', taskId);
     updateTasks([
       // eslint-disable-next-line max-len
       ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
@@ -42,7 +41,7 @@ function TodoEdit({
             : { ...taskItem })),
         ]);
       } else {
-        refFirst.current.textContent = currentTask.name[0];
+        refFirst.current.textContent = taskName[0];
         updateTasks([
           ...tasks.map((taskItem) => (taskItem.id === currentTask.id
             ? { ...currentTask, name: refFirst.current.textContent }
@@ -70,6 +69,7 @@ function TodoEdit({
             onBlur={saveTaskEdit}
             onKeyDown={keySaveTaskEdit}
             onClick={saveTaskEdit}
+            className="edit__name"
           >
             {currentTask.name}
           </h3>

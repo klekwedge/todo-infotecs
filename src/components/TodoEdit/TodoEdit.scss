@@ -18,9 +18,14 @@
   align-items: center;
 }
 
-// .edit__buttons ._btn:first-child{
-//   background: red;
-// }
+.edit__name {
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid transparent;
+  &:focus {
+    border: 1px solid red;
+  }
+}
 
 .edit__buttons ._btn:nth-child(2) {
   background: #e53e3e;
