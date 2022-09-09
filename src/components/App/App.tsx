@@ -1,16 +1,17 @@
-/* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
-import TodoList from '../TasksList/TasksList';
 import TodoEdit from '../EditTask/EditTask';
-import './App.scss';
+import { ITaskItem } from '../../types/TaskItem.type';
+import TasksList from '../TasksList/TasksList';
+import './App.scss'
 
 function App() {
   // Создание состояния для списка задач и выбранной задачи
-  const [tasks, setTasks] = useState([]);
-  const [currentTask, setCurrentTask] = useState({});
+  const [tasks, setTasks] = useState<ITaskItem[]>([]);
+  const [currentTask, setCurrentTask] = useState<ITaskItem | null>(null);
 
   // Получение сохраненнных задач из локального хранилища
-  const savedTasks = JSON.parse(localStorage.getItem('savedTasks'));
+  const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '');
+
   useEffect(() => {
     if (savedTasks) {
       setTasks(savedTasks);
@@ -23,19 +24,19 @@ function App() {
   }, [tasks]);
 
   // Обновление состояния списка задач
-  function updateTasks(taskList) {
+  function updateTasks(taskList: ITaskItem[]): void {
     setTasks(taskList);
   }
 
   // Обновление выбранной задачи
-  function changeCurrentTask(task) {
+  function changeCurrentTask(task: ITaskItem | null): void {
     setCurrentTask(task);
   }
 
   // Рендер главного компонента страницы
   return (
     <main className="todo">
-      <TodoList
+      <TasksList
         tasks={tasks}
         updateTasks={updateTasks}
         changeCurrentTask={changeCurrentTask}

@@ -1,18 +1,25 @@
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import cn from 'classnames';
 import { TiDelete, TiEdit } from 'react-icons/ti';
 import './TaskItem.scss';
+import { ITaskItem } from '../../types/TaskItem.type';
+
+interface TaskItemProps {
+  task: ITaskItem;
+  toggleTask: (taskId: string) => void;
+  removeTask: (taskId: string) => void;
+  changeCurrentTask: (task: ITaskItem | null) => void;
+  currentTask: ITaskItem | null;
+}
 
 function TaskItem({
   task, toggleTask, removeTask, changeCurrentTask, currentTask,
-}) {
+}: TaskItemProps) {
   function changeCurrentTaskStatus() {
-    if (currentTask.id === task.id) {
-      changeCurrentTask({ ...task, complete: !task.complete });
+    if (currentTask) {
+      if (currentTask.id === task.id) {
+        changeCurrentTask({ ...task, complete: !task.complete });
+      }
     }
   }
 
@@ -56,7 +63,7 @@ function TaskItem({
           size="18"
           onClick={() => {
             removeTask(task.id);
-            changeCurrentTask({});
+            changeCurrentTask(null);
           }}
         />
       </div>

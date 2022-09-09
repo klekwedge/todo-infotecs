@@ -1,26 +1,35 @@
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import cn from 'classnames';
-import TodoNewTask from '../NewTaskForm/NewTaskForm';
-import TodoTask from '../TaskItem/TaskItem';
+import NewTaskForm from '../NewTaskForm/NewTaskForm';
+import TaskItem from '../TaskItem/TaskItem';
 import SearchTask from '../SearchTask/SearchTask';
 import './TasksList.scss';
+import { ITaskItem } from '../../types/TaskItem.type';
+
+interface ITasksListProps {
+  tasks: ITaskItem[];
+  updateTasks: (taskList: ITaskItem[]) => void;
+  changeCurrentTask: (task: ITaskItem | null) => void;
+  currentTask: ITaskItem | null;
+}
 
 function TasksList({
-  changeCurrentTask, tasks, updateTasks, currentTask,
-}) {
+  tasks,
+  updateTasks,
+  changeCurrentTask,
+  currentTask,
+}: ITasksListProps): JSX.Element {
   // Создание ссылки на текущий компонент
-  const taskListRef = useRef(null);
+  const taskListRef = useRef<HTMLElement>(null);
   // Создание состояния для новой задачи, а также для фильтра по имени
-  const [newTask, setNewTask] = useState(null);
-  const [filterName, setFilterName] = useState('');
+  const [newTask, setNewTask] = useState<{ name: string } | null>(null);
+  const [filterName, setFilterName] = useState<string>('');
 
   // Создание новой задачи и добавление ее в общий список
   useEffect(() => {
     if (newTask) {
-      const newTaskItem = {
+      const newTaskItem: ITaskItem = {
         id: uuidv4(),
         name: newTask.name,
         complete: false,
@@ -31,42 +40,45 @@ function TasksList({
   }, [newTask]);
 
   // Удаление задачи из общего списка
-  const removeTask = (taskId) => {
+  const removeTask = (taskId: string) => {
     updateTasks([...tasks.filter((task) => task.id !== taskId)]);
   };
 
   // Изменение состояния выполнения задачи
-  const toggleTask = (taskId) => {
+  const toggleTask = (taskId: string) => {
     updateTasks([
       ...tasks.map((task) => (task.id === taskId ? { ...task, complete: !task.complete } : { ...task })),
     ]);
   };
 
   // Реализация изменения ширины общего списка задач
-  let downed;
-  let x;
+  let downed: boolean;
+  let x: number;
 
   function stopStretch() {
     downed = false;
   }
 
-  function saveX(e) {
+  function saveX(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     downed = true;
     if (e) {
       x = e.pageX;
-    } else {
-      x = window.event.clientX;
-    }
+    } 
+    // else if (window.event) {
+    //   x = window.event.clientX;
+    // }
   }
 
-  function moveBlock(e) {
+  function moveBlock(e: MouseEvent) {
     if (downed) {
       if (e) {
         x = e.pageX;
-      } else {
-        x = window.event.clientX;
-      }
-      if (x < 800 && x > 320) {
+      } 
+      // else if (window.event) {
+      //   x = window.event.clientX;
+      // }
+
+      if (x < 800 && x > 320 && taskListRef.current) {
         taskListRef.current.style.width = `${x}px`;
       }
     }
@@ -78,7 +90,7 @@ function TasksList({
   // Создание списка задач без фильтров
   const allTodos = tasks
     .map((task) => (
-      <TodoTask
+      <TaskItem
         task={task}
         key={task.id}
         toggleTask={toggleTask}
@@ -88,14 +100,14 @@ function TasksList({
       />
     ))
     .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
-  let filterList = [];
+  let filterList: JSX.Element[];
 
   // Создание списка задач с фильтром по имени
   if (filterName) {
     filterList = tasks
       .filter((task) => task.name.includes(filterName))
       .map((task) => (
-        <TodoTask
+        <TaskItem
           task={task}
           key={task.id}
           toggleTask={toggleTask}
@@ -105,13 +117,15 @@ function TasksList({
         />
       ))
       .sort((taskItem) => (taskItem.props.task.complete ? 1 : -1));
+  } else {
+    filterList = [];
   }
 
   // Рендер компонента списка задач
   return (
     <section className="todo__tasks" ref={taskListRef}>
       <h2 className="tasks__title">All tasks</h2>
-      <TodoNewTask addTask={setNewTask} />
+      <NewTaskForm addTask={setNewTask} />
       <SearchTask setFilterName={setFilterName} />
       <ul className={cn('tasks__list', { _scroll: tasks.length > 16 })}>
         {filterName ? filterList : allTodos}
