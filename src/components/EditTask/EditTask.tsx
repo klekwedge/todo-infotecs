@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import "./EditTask.scss";
 import { ITaskItem } from "../../types/TaskItem.type";
@@ -17,9 +17,15 @@ function EditTask({
   changeCurrentTask,
 }: EditTaskProps) {
   // Создание состояния для название задачи
-  const [taskName, setTaskName] = useState<string>(
-    currentTask ? currentTask.name : ""
-  );
+  const [taskName, setTaskName] = useState<string>("");
+
+  useEffect(()=>{
+    if(currentTask){
+      setTaskName(currentTask.name)
+    }
+  }, [currentTask])
+
+
   // Создание ссылки на название текущей задачи
   const nameTaskRef = useRef<HTMLHeadingElement>(null);
 
@@ -55,6 +61,7 @@ function EditTask({
         setTaskName(nameTaskRef.current.textContent);
         nameTaskRef.current.contentEditable = "false";
       }
+
 
       if (
         nameTaskRef.current &&
