@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import TodoEdit from '../EditTask/EditTask';
 import { ITaskItem } from '../../types/TaskItem.type';
 import TasksList from '../TasksList/TasksList';
-import './App.scss'
+import './App.scss';
 
 function App() {
   // Создание состояния для списка задач и выбранной задачи
   const [tasks, setTasks] = useState<ITaskItem[]>([]);
   const [currentTask, setCurrentTask] = useState<ITaskItem | null>(null);
 
-  // Получение сохраненнных задач из локального хранилища
-  const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '');
-
   useEffect(() => {
+    // Получение сохраненнных задач из локального хранилища
+    const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '');
+
     if (savedTasks) {
       setTasks(savedTasks);
     }
