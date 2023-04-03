@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ITaskItem } from "../../types/TaskItem.type";
 import "./NewTaskForm.scss";
 
 interface NewTaskFormProps {
@@ -9,7 +8,7 @@ interface NewTaskFormProps {
 function NewTaskForm({ addTask }: NewTaskFormProps) {
   // Создание состояния для ввода названия задачи
   const [taskNameInput, setTaskNameInput] = useState<string>("");
-  const minLength: number = 4;
+  const minLength = 4;
 
   // Создание новой задачи в списке задач
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

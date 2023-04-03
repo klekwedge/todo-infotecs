@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TodoEdit from '../EditTask/EditTask';
 import { ITaskItem } from '../../types/TaskItem.type';
 import TasksList from '../TasksList/TasksList';

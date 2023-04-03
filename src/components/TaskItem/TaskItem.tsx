@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 import { TiDelete, TiEdit } from 'react-icons/ti';
 import './TaskItem.scss';
