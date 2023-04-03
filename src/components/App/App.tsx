@@ -11,17 +11,17 @@ function App() {
 
   useEffect(() => {
     // Получение сохраненнных задач из локального хранилища
-    const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '');
+    // const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '');
 
-    if (savedTasks) {
-      setTasks(savedTasks);
-    }
+    // if (savedTasks) {
+    //   setTasks(savedTasks);
+    // }
   }, []);
 
   // При каждом обновлении состояния задач обновляется локальное хранилище
-  useEffect(() => {
-    localStorage.setItem('savedTasks', JSON.stringify(tasks));
-  }, [tasks]);
+  // useEffect(() => {
+  //   localStorage.setItem('savedTasks', JSON.stringify(tasks));
+  // }, [tasks]);
 
   // Обновление состояния списка задач
   function updateTasks(taskList: ITaskItem[]): void {
