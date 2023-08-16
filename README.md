@@ -1,6 +1,6 @@
 # Тестовое задание для стажера на позицию «Программист на языке JS»
 
-**You can also read this README in [English](https://github.com/klekwedge/cv/blob/main/README.EN.md).**
+**You can also read this README in [English](https://github.com/klekwedge/todo-infotecs/blob/main/README.EN.md).**
 
 ## Дано:
 JS, CSS (SCSS, SASS)

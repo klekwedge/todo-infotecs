@@ -1,6 +1,6 @@
 # Test task for a trainee for the position "JS programmer"
 
-**Вы также можете прочитать этот README на [русском](https://github.com/klekwedge/cv/blob/main/README.md)**
+**Вы также можете прочитать этот README на [русском](https://github.com/klekwedge/todo-infotecs/blob/main/README.md)**
 
 ## Given:
 JS, CSS (SCSS, SASS)
